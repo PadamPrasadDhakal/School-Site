@@ -14,77 +14,6 @@
             --text: #22223b;
             --bear: #a9744f;
         }
-        /* Welcome overlay styles */
-        #stage-overlay {
-            position: fixed;
-            z-index: 9999;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: #22223b;
-            font-size: 2rem;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            overflow: hidden;
-        }
-        .curtain {
-            position: absolute;
-            left: 0; right: 0;
-            height: 50vh;
-            width: 100vw;
-            background: linear-gradient(135deg, #ff7b94 0%, #b49cff 100%);
-            z-index: 10000;
-            transition: transform 1s cubic-bezier(0.77,0,0.18,1);
-        }
-        .curtain.top {
-            top: 0;
-            border-bottom-left-radius: 60% 20px;
-            border-bottom-right-radius: 60% 20px;
-            box-shadow: 0 8px 32px rgba(37,99,235,0.15);
-        }
-        .curtain.bottom {
-            bottom: 0;
-            border-top-left-radius: 60% 20px;
-            border-top-right-radius: 60% 20px;
-            box-shadow: 0 -8px 32px rgba(34,197,94,0.15);
-        }
-        #stage-overlay.hide {
-            pointer-events: none;
-        }
-        #stage-overlay.hide .curtain.top {
-            transform: translateY(-100%);
-        }
-        #stage-overlay.hide .curtain.bottom {
-            transform: translateY(100%);
-        }
-        #stage-overlay .welcome-text {
-            opacity: 0;
-            transition: opacity 0.5s;
-            z-index: 10001;
-            text-align: center;
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 0;
-        }
-        #stage-overlay.show-welcome .welcome-text {
-            opacity: 1;
-        }
-        #stage-overlay .welcome-subtext {
-            opacity: 0;
-            transition: opacity 0.5s 0.2s;
-            z-index: 10001;
-            text-align: center;
-            font-size: 1.1rem;
-            margin-top: 1rem;
-        }
-        #stage-overlay.show-welcome .welcome-subtext {
-            opacity: 0.85;
-        }
         /* Enhanced Loading overlay styles */
         #loading-overlay {
             position: fixed;
@@ -273,12 +202,6 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-<div id="stage-overlay">
-    <div class="curtain top"></div>
-    <div class="curtain bottom"></div>
-    <div class="welcome-text">Welcome to Balabhadra Janata Higher Secondary School</div>
-    <div class="welcome-subtext">Empowering students for a brighter future</div>
-</div>
 <div id="loading-overlay">
     <div class="curtain top"></div>
     <div class="curtain bottom"></div>
@@ -322,7 +245,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 (function() {
-    var overlay = document.getElementById('stage-overlay');
+    var overlay = document.getElementById('loading-overlay');
     if (!overlay) return;
     if (sessionStorage.getItem('bjss_welcome_shown')) {
         overlay.style.display = 'none';
