@@ -5,7 +5,9 @@
 <!-- Hero Section -->
 <div class="row align-items-center mb-5">
     <div class="col-md-6 order-2 order-md-1">
-        <h1 class="display-4 fw-bold mb-3" style="color: var(--primary);">Welcome to Balabhadra Janata Higher Secondary School</h1>
+        <h1 class="display-4 fw-bold mb-3" style="color: var(--primary);">
+            <span id="typewriter"></span>
+        </h1>
         <p class="lead mb-4">Located at Mechinagar-11, Dhaijan, Jhapa, we are dedicated to nurturing young minds with a focus on holistic development, modern teaching, and a supportive learning environment.</p>
         <ul class="list-unstyled mb-4">
             <li class="mb-2"><span class="badge bg-success me-2">&#10003;</span> Modern Infrastructure &amp; Facilities</li>
@@ -160,4 +162,33 @@
     }
 }
 </style>
+{% endblock %}
+{% block extra_js %}
+<script>
+// Typewriter effect for the home page heading
+function typeWriterEffect(element, text, speed, pause, loop) {
+    let i = 0;
+    function type() {
+        if (i <= text.length) {
+            element.textContent = text.substring(0, i);
+            i++;
+            setTimeout(type, speed);
+        } else if (loop) {
+            setTimeout(() => {
+                i = 0;
+                type();
+            }, pause);
+        }
+    }
+    type();
+}
+window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        var tw = document.getElementById('typewriter');
+        if (tw) {
+            typeWriterEffect(tw, 'Balabhadra Janata Higher Secondary School', 60, 1200, true);
+        }
+    }, 3100); // Start after welcome animation (3s)
+});
+</script>
 {% endblock %} 
