@@ -101,9 +101,9 @@
         }
         .navbar {
             min-height: 72px;
-            background: linear-gradient(90deg, #CA6673 0%, #9177C7 50%, #4796E3 100%) !important;
+            background: linear-gradient(90deg, #ff7b94 0%, #b49cff 50%, #6bbcff 100%) !important;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-            transition: box-shadow 0.3s, filter 0.3s;
+            transition: box-shadow 0.3s, filter 0.3s, background 0.3s, backdrop-filter 0.3s;
         }
         .navbar:hover, .navbar:focus-within {
             box-shadow: 0 0 24px 4px var(--accent), 0 2px 12px rgba(169,116,79,0.12);
@@ -117,8 +117,14 @@
             transition: color 0.2s, text-shadow 0.3s;
         }
         .navbar .nav-link.active, .navbar .nav-link:focus, .navbar .nav-link:hover {
-            color: #fff !important;
-            text-shadow: 0 0 8px #ec2F4B, 0 0 16px #009FFF;
+            color: #F0F0F0 !important;
+            background: none;
+            text-shadow: none;
+        }
+        .navbar .navbar-nav .nav-link {
+            font-size: 1.18rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
         .news-bar {
             background: var(--secondary);
@@ -175,6 +181,23 @@
             background: #fff;
             color: var(--text);
         }
+        .sticky-top {
+            position: sticky;
+            top: 0;
+            z-index: 1030;
+        }
+        .navbar.minimized {
+            min-height: 52px !important;
+            padding-top: 0.2rem !important;
+            padding-bottom: 0.2rem !important;
+            background: linear-gradient(90deg, rgba(255,123,148,0.7) 0%, rgba(180,156,255,0.7) 50%, rgba(107,188,255,0.7) 100%) !important;
+            backdrop-filter: blur(12px) saturate(1.2);
+            -webkit-backdrop-filter: blur(12px) saturate(1.2);
+        }
+        .navbar .navbar-brand.minimized {
+            font-size: 1.3rem !important;
+            transition: font-size 0.2s;
+        }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
@@ -185,7 +208,7 @@
     <div class="welcome-text">Welcome to Balabhadra Janata Higher Secondary School</div>
     <div class="welcome-subtext">Empowering students for a brighter future</div>
 </div>
-<nav class="navbar navbar-expand-lg navbar-dark mb-3 py-3">
+<nav class="navbar navbar-expand-lg navbar-dark mb-3 py-3 sticky-top" id="mainNavbar">
     <div class="container-fluid">
         <a class="navbar-brand fs-3 fw-bold" href="/">Balabhadra Janata HSS</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -193,11 +216,11 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/teachers/">Teachers</a></li>
-                <li class="nav-item"><a class="nav-link" href="/gallery/">Gallery</a></li>
-                <li class="nav-item"><a class="nav-link" href="/news/">News</a></li>
-                <li class="nav-item"><a class="nav-link" href="/posts/">Posts</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.path == '/' %} active{% endif %}" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.path == '/teachers/' %} active{% endif %}" href="/teachers/">Teachers</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.path == '/gallery/' %} active{% endif %}" href="/gallery/">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.path == '/news/' %} active{% endif %}" href="/news/">News</a></li>
+                <li class="nav-item"><a class="nav-link{% if request.path == '/posts/' %} active{% endif %}" href="/posts/">Posts</a></li>
             </ul>
         </div>
     </div>
@@ -236,5 +259,18 @@
     }
 </script>
 {% block extra_js %}{% endblock %}
+<script>
+window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('mainNavbar');
+    const brand = navbar.querySelector('.navbar-brand');
+    if (window.scrollY > 40) {
+        navbar.classList.add('minimized');
+        brand.classList.add('minimized');
+    } else {
+        navbar.classList.remove('minimized');
+        brand.classList.remove('minimized');
+    }
+});
+</script>
 </body>
 </html> 

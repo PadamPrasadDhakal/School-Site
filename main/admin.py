@@ -16,7 +16,7 @@ class TeacherAdmin(admin.ModelAdmin):
             'fields': ('name', 'pronouns', 'subject', 'level', 'photo', 'bio', 'about', 'experience', 'education')
         }),
         ('Contact & Social', {
-            'fields': ('email', 'instagram', 'twitter', 'facebook')
+            'fields': ('email', 'instagram', 'facebook')
         }),
     )
 
