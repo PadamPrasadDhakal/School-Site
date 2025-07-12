@@ -24,7 +24,9 @@ def home(request):
 # Teachers page
 
 def teachers(request):
-    teachers = Teacher.objects.all()
+    level_order = ['higher_secondary','secondary', 'primary', 'pre_primary' ]
+    teachers = list(Teacher.objects.all())
+    teachers.sort(key=lambda t: (level_order.index(t.level) if t.level in level_order else 99, t.name))
     news = get_news()
     return render(request, 'main/teachers.html', {'teachers': teachers, 'news': news})
 

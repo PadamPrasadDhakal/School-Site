@@ -1,28 +1,145 @@
 {% extends 'main/base.html' %}
 {% block title %}Home | Balabhadra Janata HSS{% endblock %}
 {% block content %}
-<div class="jumbotron p-4 mb-4 bg-light border rounded-3">
-    <h1 class="display-5">{{ school_info.name }}</h1>
-    <p class="lead">{{ school_info.address }}</p>
-    <p>Phone: {{ school_info.phone }}</p>
+<!-- Hero Section -->
+<div class="row align-items-center mb-5">
+    <div class="col-md-6 order-2 order-md-1">
+        <h1 class="display-4 fw-bold mb-3" style="color: var(--primary);">Welcome to Balabhadra Janata Higher Secondary School</h1>
+        <p class="lead mb-4">Located at Mechinagar-11, Dhaijan, Jhapa, we are dedicated to nurturing young minds with a focus on holistic development, modern teaching, and a supportive learning environment.</p>
+        <ul class="list-unstyled mb-4">
+            <li class="mb-2"><span class="badge bg-success me-2">&#10003;</span> Modern Infrastructure &amp; Facilities</li>
+            <li class="mb-2"><span class="badge bg-success me-2">&#10003;</span> Experienced &amp; Caring Faculty</li>
+            <li class="mb-2"><span class="badge bg-success me-2">&#10003;</span> Sports, Arts, and Technology Programs</li>
+            <li class="mb-2"><span class="badge bg-success me-2">&#10003;</span> Safe, Nurturing Environment</li>
+        </ul>
+        <a href="#messages" class="btn btn-accent btn-lg px-4">Meet Our Leaders</a>
+    </div>
+    <div class="col-md-6 order-1 order-md-2 text-center mb-4 mb-md-0">
+        <img src="/assets/bjss1.jpg" alt="School Photo" class="img-fluid rounded-4 shadow-lg glowing-img" style="max-height: 350px; object-fit: cover;">
+    </div>
 </div>
-<h3>Latest Posts</h3>
-<div class="row">
-    {% for post in latest_posts %}
-    <div class="col-md-4 mb-3">
-        <div class="card h-100">
-            {% if post.image %}
-            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text">{{ post.content|truncatewords:20 }}</p>
-                <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More</a>
+<!-- Stats Section -->
+<div class="row text-center mb-5">
+    <div class="col-6 col-md-3 mb-3">
+        <div class="stat-box py-3 rounded-3">
+            <div class="fs-2 fw-bold">25+</div>
+            <div class="text-muted">Professional Teachers</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+        <div class="stat-box py-3 rounded-3">
+            <div class="fs-2 fw-bold">30+</div>
+            <div class="text-muted">Years of Excellence</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+        <div class="stat-box py-3 rounded-3">
+            <div class="fs-2 fw-bold">1000+</div>
+            <div class="text-muted">Students Enrolled</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3 mb-3">
+        <div class="stat-box py-3 rounded-3">
+            <div class="fs-2 fw-bold">15+</div>
+            <div class="text-muted">Awards Won</div>
+        </div>
+    </div>
+</div>
+<!-- Features Section -->
+<div class="row mb-5">
+    <div class="col-md-4 mb-4">
+        <div class="feature-box p-4 h-100 rounded-4 shadow-sm text-center">
+            <div class="fs-1 mb-3">&#128218;</div>
+            <h5 class="fw-bold mb-2">Holistic Education</h5>
+            <p>We focus on academic, personal, and extracurricular development for a bright future.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="feature-box p-4 h-100 rounded-4 shadow-sm text-center">
+            <div class="fs-1 mb-3">&#127947;&#65039;</div>
+            <h5 class="fw-bold mb-2">Sports &amp; Activities</h5>
+            <p>From football to music, our students thrive in a vibrant, active environment.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="feature-box p-4 h-100 rounded-4 shadow-sm text-center">
+            <div class="fs-1 mb-3">&#128187;</div>
+            <h5 class="fw-bold mb-2">Modern Technology</h5>
+            <p>Computer labs, robotics, and digital learning tools prepare students for tomorrow.</p>
+        </div>
+    </div>
+</div>
+<!-- Leadership Messages Section -->
+<div id="messages" class="mb-5">
+    <h3 class="fw-bold mb-4 text-center" style="color: var(--primary);">Messages from Our Leaders</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-4">
+            <div class="card p-4 text-center h-100">
+                <div class="mx-auto mb-3 leader-img-circle d-flex align-items-center justify-content-center">Principal Image</div>
+                <h5 class="fw-bold">Principal</h5>
+                <p class="text-muted">"Our mission is to empower every student to achieve their full potential."</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card p-4 text-center h-100">
+                <div class="mx-auto mb-3 leader-img-circle d-flex align-items-center justify-content-center">School President Image</div>
+                <h5 class="fw-bold">School President</h5>
+                <p class="text-muted">"We are committed to providing a safe, nurturing, and innovative learning environment."</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card p-4 text-center h-100">
+                <div class="mx-auto mb-3 leader-img-circle d-flex align-items-center justify-content-center">Alumni Head Image</div>
+                <h5 class="fw-bold">Alumni Head</h5>
+                <p class="text-muted">"Our alumni are making a difference in the world, and it all started here."</p>
             </div>
         </div>
     </div>
-    {% empty %}
-    <p>No posts yet.</p>
-    {% endfor %}
 </div>
+<!-- Call to Action -->
+<div class="text-center mb-5">
+    <a href="/admission/" class="btn btn-accent btn-lg px-5 py-3 shadow">Inquire Now</a>
+</div>
+<style>
+.navbar {
+    background: #a9744f !important; /* Bear color */
+}
+.stat-box {
+    background: #fff;
+    border: 1.5px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(37,99,235,0.06);
+}
+.feature-box {
+    background: #f4f6fa;
+    border: 1.5px solid #e0e0e0;
+    transition: box-shadow 0.3s;
+}
+.feature-box:hover {
+    box-shadow: 0 4px 24px 0 var(--accent), 0 1.5px 8px rgba(37,99,235,0.08);
+}
+.glowing-img {
+    transition: box-shadow 0.3s, filter 0.3s;
+}
+.glowing-img:hover {
+    box-shadow: 0 0 32px 8px var(--accent), 0 2px 8px rgba(37,99,235,0.12);
+    filter: brightness(1.08) saturate(1.1);
+}
+.leader-img-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e42 0%, #22c55e 100%);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(37,99,235,0.10);
+    margin-bottom: 1rem;
+}
+.leader-img-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+</style>
 {% endblock %} 
