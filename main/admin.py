@@ -1,6 +1,11 @@
 from django.contrib import admin
 from .models import Teacher, Post, Comment, PhotoGallery, News, PhotoAlbum
 
+class PhotoGalleryInline(admin.TabularInline):
+    model = PhotoGallery
+    extra = 25
+    max_num = 25
+
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ('name', 'subject')
@@ -21,6 +26,7 @@ class CommentAdmin(admin.ModelAdmin):
 class PhotoAlbumAdmin(admin.ModelAdmin):
     list_display = ('title',)
     search_fields = ('title',)
+    inlines = [PhotoGalleryInline]
 
 @admin.register(PhotoGallery)
 class PhotoGalleryAdmin(admin.ModelAdmin):
