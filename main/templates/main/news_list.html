@@ -1,1 +1,29 @@
- 
+{% extends 'main/base.html' %}
+{% block title %}News | Balabhadra Janata HSS{% endblock %}
+{% block content %}
+<h2>School News</h2>
+<ul class="list-group mb-4">
+    {% for item in news %}
+    <li class="list-group-item">
+        <h5>
+            <a href="{% url 'news_detail' item.pk %}" class="news-link">{{ item.headline }}</a>
+        </h5>
+        <small class="text-muted">{{ item.date|date:"M d, Y H:i" }}</small>
+        <p>{{ item.details|truncatewords:30 }}</p>
+    </li>
+    {% empty %}
+    <li class="list-group-item">No news yet.</li>
+    {% endfor %}
+</ul>
+<style>
+.news-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.news-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+</style>
+{% endblock %} 

@@ -61,3 +61,8 @@ def post_detail(request, pk):
             Comment.objects.create(post=post, name=name, content=content, date=timezone.now())
             return redirect('post_detail', pk=post.pk)
     return render(request, 'main/post_detail.html', {'post': post, 'comments': comments, 'news': news})
+
+def news_detail(request, pk):
+    news_item = get_object_or_404(News, pk=pk)
+    news = get_news()
+    return render(request, 'main/news_detail.html', {'news_item': news_item, 'news': news})

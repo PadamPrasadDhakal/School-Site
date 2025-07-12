@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% block title %}{{ news_item.headline }} | News | Balabhadra Janata HSS{% endblock %}
+{% block content %}
+<a href="{% url 'news_list' %}" class="btn btn-link mb-3">&larr; Back to News</a>
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">{{ news_item.headline }}</h2>
+        <small class="text-muted">{{ news_item.date|date:"M d, Y H:i" }}</small>
+        <hr>
+        <div class="mb-3">{{ news_item.details|linebreaks }}</div>
+    </div>
+</div>
+{% endblock %} 

@@ -43,7 +43,7 @@ class PhotoGallery(models.Model):
 
 class News(models.Model):
     headline = models.CharField(max_length=200)
-    content = models.TextField(blank=True)
+    details = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
@@ -52,4 +52,4 @@ class News(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('news_list')
+        return reverse('news_detail', args=[str(self.pk)])
