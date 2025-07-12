@@ -3,10 +3,17 @@ from django.db import models
 # Create your models here.
 
 class Teacher(models.Model):
+    LEVEL_CHOICES = [
+        ('pre_primary', 'Pre Primary'),
+        ('primary', 'Primary'),
+        ('secondary', 'Secondary'),
+        ('higher_secondary', 'Higher Secondary'),
+    ]
     name = models.CharField(max_length=100)
     subject = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='teachers/')
     bio = models.TextField(blank=True)
+    level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='primary')
 
     def __str__(self):
         return self.name

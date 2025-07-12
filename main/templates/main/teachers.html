@@ -2,22 +2,41 @@
 {% block title %}Teachers | Balabhadra Janata HSS{% endblock %}
 {% block content %}
 <h2>Our Teachers</h2>
-<div class="row">
-    {% for teacher in teachers %}
-    <div class="col-md-4 mb-3">
-        <div class="card h-100">
-            {% if teacher.photo %}
-            <img src="{{ teacher.photo.url }}" class="card-img-top" alt="{{ teacher.name }}">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ teacher.name }}</h5>
-                <p class="card-text"><strong>Subject:</strong> {{ teacher.subject }}</p>
-                <p class="card-text">{{ teacher.bio }}</p>
+{% regroup teachers by level as level_list %}
+{% for group in level_list %}
+    <h4 class="mt-4">
+      {% if group.grouper == "pre_primary" %}Pre Primary
+      {% elif group.grouper == "primary" %}Primary
+      {% elif group.grouper == "secondary" %}Secondary
+      {% elif group.grouper == "higher_secondary" %}Higher Secondary
+      {% else %}{{ group.grouper|title }}
+      {% endif %}
+    </h4>
+    <hr class="mb-4 mt-1" style="border-top: 2px solid var(--primary); width: 180px;">
+    <div class="row">
+        {% for teacher in group.list %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 text-center">
+                {% if teacher.photo %}
+                <img src="{{ teacher.photo.url }}" class="rounded-circle mt-3 mb-2 teacher-photo-small" alt="{{ teacher.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ teacher.name }}</h5>
+                    <p class="card-text"><strong>Subject:</strong> {{ teacher.subject }}</p>
+                    <p class="card-text">{{ teacher.bio }}</p>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <p>No teachers added yet.</p>
-    {% endfor %}
-</div>
+{% endfor %}
+<style>
+.teacher-photo-small {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border: 3px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+}
+</style>
 {% endblock %} 

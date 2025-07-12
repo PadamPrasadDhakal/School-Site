@@ -8,7 +8,8 @@ class PhotoGalleryInline(admin.TabularInline):
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ('name', 'subject')
+    list_display = ('name', 'subject', 'level')
+    list_filter = ('level',)
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
