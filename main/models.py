@@ -10,9 +10,16 @@ class Teacher(models.Model):
         ('higher_secondary', 'Higher Secondary'),
     ]
     name = models.CharField(max_length=100)
+    pronouns = models.CharField(max_length=30, blank=True, help_text='e.g. she/her, he/him, they/them')
     subject = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='teachers/')
     bio = models.TextField(blank=True)
+    about = models.TextField(blank=True, help_text='Short about me section')
+    experience = models.TextField(blank=True, help_text='Experience details')
+    education = models.TextField(blank=True, help_text='Education details')
+    instagram = models.URLField(blank=True, default='https://www.instagram.com/')
+    facebook = models.URLField(blank=True, default='https://www.facebook.com/')
+    email = models.EmailField(blank=True, default='example@example.com')
     level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='primary')
 
     def __str__(self):

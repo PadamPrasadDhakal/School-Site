@@ -74,3 +74,8 @@ def news_detail(request, pk):
     news_item = get_object_or_404(News, pk=pk)
     news = get_news()
     return render(request, 'main/news_detail.html', {'news_item': news_item, 'news': news})
+
+def teacher_detail(request, pk):
+    teacher = get_object_or_404(Teacher, pk=pk)
+    news = get_news()
+    return render(request, 'main/teacher_detail.html', {'teacher': teacher, 'news': news})

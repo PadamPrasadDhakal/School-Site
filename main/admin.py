@@ -10,6 +10,15 @@ class PhotoGalleryInline(admin.TabularInline):
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ('name', 'subject', 'level')
     list_filter = ('level',)
+    search_fields = ('name', 'subject', 'bio', 'about')
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'pronouns', 'subject', 'level', 'photo', 'bio', 'about', 'experience', 'education')
+        }),
+        ('Contact & Social', {
+            'fields': ('email', 'instagram', 'twitter', 'facebook')
+        }),
+    )
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
