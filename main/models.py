@@ -33,7 +33,16 @@ class Comment(models.Model):
     def __str__(self):
         return f"Comment by {self.name} on {self.post.title}"
 
+class PhotoAlbum(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    cover = models.ImageField(upload_to='gallery/covers/')
+
+    def __str__(self):
+        return self.title
+
 class PhotoGallery(models.Model):
+    album = models.ForeignKey(PhotoAlbum, on_delete=models.CASCADE, related_name='photos', null=True, blank=True)
     image = models.ImageField(upload_to='gallery/')
     caption = models.CharField(max_length=200, blank=True)
     date = models.DateTimeField(auto_now_add=True)

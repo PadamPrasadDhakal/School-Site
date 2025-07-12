@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Teacher, Post, Comment, PhotoGallery, News
+from .models import Teacher, Post, Comment, PhotoGallery, News, PhotoAlbum
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
@@ -17,10 +17,15 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ('name', 'content')
     list_filter = ('date',)
 
+@admin.register(PhotoAlbum)
+class PhotoAlbumAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    search_fields = ('title',)
+
 @admin.register(PhotoGallery)
 class PhotoGalleryAdmin(admin.ModelAdmin):
-    list_display = ('caption', 'date')
-    list_filter = ('date',)
+    list_display = ('caption', 'album', 'date')
+    list_filter = ('album', 'date')
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):

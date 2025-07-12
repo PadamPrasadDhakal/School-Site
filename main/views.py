@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Teacher, Post, Comment, PhotoGallery, News
+from .models import Teacher, Post, Comment, PhotoGallery, News, PhotoAlbum
 from django.utils import timezone
 
 # Home page: school info, news bar, latest posts
@@ -31,9 +31,15 @@ def teachers(request):
 # Gallery page
 
 def gallery(request):
-    photos = PhotoGallery.objects.order_by('-date')
+    albums = PhotoAlbum.objects.all()
     news = get_news()
-    return render(request, 'main/gallery.html', {'photos': photos, 'news': news})
+    return render(request, 'main/gallery.html', {'albums': albums, 'news': news})
+
+def album_detail(request, pk):
+    album = get_object_or_404(PhotoAlbum, pk=pk)
+    photos = album.photos.order_by('-date')
+    news = get_news()
+    return render(request, 'main/album_detail.html', {'album': album, 'photos': photos, 'news': news})
 
 # News page
 

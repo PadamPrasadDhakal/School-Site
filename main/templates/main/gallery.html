@@ -3,17 +3,50 @@
 {% block content %}
 <h2>Photo Gallery</h2>
 <div class="row">
-    {% for photo in photos %}
+    {% for album in albums %}
     <div class="col-md-3 mb-3">
-        <div class="card h-100">
-            <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.caption }}">
+        <div class="card h-100 gallery-album-card position-relative overflow-hidden">
+            <img src="{{ album.cover.url }}" class="card-img-top" alt="{{ album.title }}">
             <div class="card-body">
-                <p class="card-text">{{ photo.caption }}</p>
+                <h5 class="card-title">{{ album.title }}</h5>
+                <p class="card-text">{{ album.description|truncatewords:12 }}</p>
             </div>
+            <a href="{% url 'album_detail' album.pk %}" class="view-more-btn btn btn-accent">View More</a>
         </div>
     </div>
     {% empty %}
-    <p>No photos in the gallery yet.</p>
+    <p>No albums in the gallery yet.</p>
     {% endfor %}
 </div>
+<style>
+.gallery-album-card {
+    cursor: pointer;
+}
+.gallery-album-card .view-more-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 2;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.gallery-album-card:hover .view-more-btn,
+.gallery-album-card:focus-within .view-more-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+.gallery-album-card img {
+    transition: filter 0.3s, transform 0.3s;
+}
+.gallery-album-card:hover img {
+    filter: brightness(0.7) blur(1px);
+    transform: scale(1.03);
+}
+</style>
 {% endblock %} 
