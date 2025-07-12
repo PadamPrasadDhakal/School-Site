@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% block title %}Home | Balabhadra Janat HSS{% endblock %}
+{% block content %}
+<div class="jumbotron p-4 mb-4 bg-light border rounded-3">
+    <h1 class="display-5">{{ school_info.name }}</h1>
+    <p class="lead">{{ school_info.address }}</p>
+    <p>Phone: {{ school_info.phone }}</p>
+</div>
+<h3>Latest Posts</h3>
+<div class="row">
+    {% for post in latest_posts %}
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+                <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No posts yet.</p>
+    {% endfor %}
+</div>
+{% endblock %} 

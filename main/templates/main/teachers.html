@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% block title %}Teachers | Balabhadra Janat HSS{% endblock %}
+{% block content %}
+<h2>Our Teachers</h2>
+<div class="row">
+    {% for teacher in teachers %}
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            {% if teacher.photo %}
+            <img src="{{ teacher.photo.url }}" class="card-img-top" alt="{{ teacher.name }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ teacher.name }}</h5>
+                <p class="card-text"><strong>Subject:</strong> {{ teacher.subject }}</p>
+                <p class="card-text">{{ teacher.bio }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No teachers added yet.</p>
+    {% endfor %}
+</div>
+{% endblock %} 
