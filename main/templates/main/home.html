@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load static %}
 {% block title %}Home | Balabhadra Janata HSS{% endblock %}
 {% block content %}
 <!-- Hero Section -->
@@ -15,7 +16,7 @@
         <a href="#messages" class="btn btn-accent btn-lg px-4">Meet Our Leaders</a>
     </div>
     <div class="col-md-6 order-1 order-md-2 text-center mb-4 mb-md-0">
-        <img src="/assets/bjss1.jpg" alt="School Photo" class="img-fluid rounded-4 shadow-lg glowing-img" style="max-height: 350px; object-fit: cover;">
+        <img src="{% static 'main/assets/bjss1.jpg' %}" alt="School Photo" class="img-fluid rounded-4 shadow-lg glowing-img school-hero-img">
     </div>
 </div>
 <!-- Stats Section -->
@@ -75,7 +76,9 @@
     <div class="row justify-content-center">
         <div class="col-md-4 mb-4">
             <div class="card p-4 text-center h-100">
-                <div class="mx-auto mb-3 leader-img-circle d-flex align-items-center justify-content-center">Principal Image</div>
+                <div class="mx-auto mb-3 leader-img-circle d-flex align-items-center justify-content-center p-0 overflow-hidden">
+                    <img src="{% static 'main/assets/principle.jpg' %}" alt="Principal" class="w-100 h-100 object-fit-cover">
+                </div>
                 <h5 class="fw-bold">Principal</h5>
                 <p class="text-muted">"Our mission is to empower every student to achieve their full potential."</p>
             </div>
@@ -125,8 +128,8 @@
     filter: brightness(1.08) saturate(1.1);
 }
 .leader-img-circle {
-    width: 110px;
-    height: 110px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     background: linear-gradient(135deg, #f59e42 0%, #22c55e 100%);
     color: #fff;
@@ -140,6 +143,23 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+}
+.school-hero-img {
+    width: 100%;
+    max-width: 100vw;
+    min-width: 320px;
+    height: auto;
+    aspect-ratio: 2/1.1;
+}
+@media (min-width: 768px) {
+    .school-hero-img {
+        width: 48vw;
+        max-width: 48vw;
+        min-width: 400px;
+        aspect-ratio: 2/1.1;
+        position: relative;
+        left: -20px;
+    }
 }
 </style>
 {% endblock %} 
