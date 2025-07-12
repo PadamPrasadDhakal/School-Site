@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% block title %}{{ post.title }} | Balabhadra Janata HSS{% endblock %}
+{% block content %}
+<div class="card mb-4">
+    {% if post.image %}
+    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+    {% endif %}
+    <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <small class="text-muted">{{ post.date|date:"M d, Y H:i" }}</small>
+        <p class="card-text mt-3">{{ post.content }}</p>
+    </div>
+</div>
+<h4>Comments</h4>
+<ul class="list-group mb-3">
+    {% for comment in comments %}
+    <li class="list-group-item">
+        <strong>{{ comment.name }}</strong> <small class="text-muted">{{ comment.date|date:"M d, Y H:i" }}</small>
+        <p>{{ comment.content }}</p>
+    </li>
+    {% empty %}
+    <li class="list-group-item">No comments yet.</li>
+    {% endfor %}
+</ul>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Add a Comment</h5>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Comment</label>
+                <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %} 
