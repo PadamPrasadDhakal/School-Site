@@ -76,3 +76,38 @@ class News(models.Model):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('news_detail', args=[str(self.pk)])
+
+class SagarmathaTeensClubMember(models.Model):
+    DESIGNATION_CHOICES = [
+        ('president', 'President'),
+        ('vice_president', 'Vice President'),
+        ('secretary', 'Secretary'),
+        ('vice_secretary', 'Vice Secretary'),
+        ('treasurer', 'Treasurer'),
+        ('executive', 'Executive'),
+        ('club_teacher', 'Club Teacher'),
+    ]
+    name = models.CharField(max_length=100)
+    designation = models.CharField(max_length=20, choices=DESIGNATION_CHOICES)
+    photo = models.ImageField(upload_to='club/')
+    class_name = models.CharField(max_length=50, verbose_name='Class')
+    statement = models.TextField(blank=True, help_text='Statement for President, Secretary, and Club Teacher (for frontend only)')
+
+    class Meta:
+        ordering = [
+            models.Case(
+                models.When(designation='president', then=0),
+                models.When(designation='vice_president', then=1),
+                models.When(designation='secretary', then=2),
+                models.When(designation='vice_secretary', then=3),
+                models.When(designation='treasurer', then=4),
+                models.When(designation='executive', then=5),
+                models.When(designation='club_teacher', then=6),
+                default=7,
+                output_field=models.IntegerField(),
+            ),
+            'name',
+        ]
+
+    def __str__(self):
+        return f"{self.name} ({self.get_designation_display()})"

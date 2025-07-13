@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Teacher, Post, Comment, PhotoGallery, News, PhotoAlbum
+from .models import Teacher, Post, Comment, PhotoGallery, News, PhotoAlbum, SagarmathaTeensClubMember
 from django.utils import timezone
 
 # Home page: school info, news bar, latest posts
@@ -15,10 +15,14 @@ def home(request):
     }
     news = get_news()
     latest_posts = Post.objects.order_by('-date')[:3]
+    club_members = SagarmathaTeensClubMember.objects.all()
+    club_statements = club_members.filter(designation__in=['president', 'secretary', 'club_teacher'])
     return render(request, 'main/home.html', {
         'school_info': school_info,
         'news': news,
         'latest_posts': latest_posts,
+        'club_members': club_members,
+        'club_statements': club_statements,
     })
 
 # Teachers page
@@ -79,3 +83,8 @@ def teacher_detail(request, pk):
     teacher = get_object_or_404(Teacher, pk=pk)
     news = get_news()
     return render(request, 'main/teacher_detail.html', {'teacher': teacher, 'news': news})
+
+def students(request):
+    club_members = SagarmathaTeensClubMember.objects.all()
+    news = get_news()
+    return render(request, 'main/students.html', {'club_members': club_members, 'news': news})

@@ -101,6 +101,27 @@
         </div>
     </div>
 </div>
+<!-- Sagarmatha Teens Club Section -->
+<div id="sagarmatha-teens-club" class="mb-5">
+    <h3 class="fw-bold mb-4 text-center" style="color: var(--primary);">Sagarmatha Teens Club</h3>
+    <div class="row justify-content-center">
+        {% for member in club_statements %}
+        <div class="col-md-4 mb-4">
+            <div class="card p-4 text-center h-100">
+                <div class="mx-auto mb-3 leader-img-circle d-flex align-items-center justify-content-center p-0 overflow-hidden">
+                    <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="w-100 h-100 object-fit-cover">
+                </div>
+                <h5 class="fw-bold">{{ member.name }}</h5>
+                <div class="text-muted mb-2">{{ member.get_designation_display }}</div>
+                <p class="text-muted">{{ member.statement }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-3">
+        <a href="/students/" class="btn btn-accent btn-lg px-5 py-3 shadow">View More</a>
+    </div>
+</div>
 <!-- Call to Action -->
 <div class="text-center mb-5">
     <a href="/admission/" class="btn btn-accent btn-lg px-5 py-3 shadow">Inquire Now</a>

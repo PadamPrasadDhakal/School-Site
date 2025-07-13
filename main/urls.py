@@ -11,4 +11,5 @@ urlpatterns = [
     path('posts/', views.posts, name='posts'),
     path('posts/<int:pk>/', views.post_detail, name='post_detail'),
     path('teachers/<int:pk>/', views.teacher_detail, name='teacher_detail'),
+    path('students/', views.students, name='students'),
 ] 
