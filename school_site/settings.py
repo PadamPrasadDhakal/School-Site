@@ -38,7 +38,7 @@ SECRET_KEY = get_env_setting('DJANGO_SECRET_KEY', 'replace-me-in-production', re
 DEBUG = get_env_setting('DJANGO_DEBUG', 'False').lower() in ('1', 'true', 'yes')
 
 # ALLOWED_HOSTS from env (comma separated)
-ALLOWED_HOSTS = [h.strip() for h in get_env_setting('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',') if h.strip()]
+ALLOWED_HOSTS = [h.strip() for h in os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',') if h.strip()]
 
 
 # Application definition
