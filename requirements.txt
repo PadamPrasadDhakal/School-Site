@@ -1,20 +1,34 @@
+
+# Core
 Django==5.2.4
 gunicorn==21.2.0
 whitenoise==6.5.0
 python-dotenv==1.0.1
+
+# Sitemap (Django has built-in sitemaps, this is optional helper)
 django-sitemaps==1.0
 
 # Image handling (required for ImageField)
 Pillow==10.1.0
 
-# Database helpers (optional - needed if you use Postgres in production)
-psycopg-binary==2.9.9
+# Database helpers (use Postgres in production; choose one)
+# For psycopg2 (legacy adapter) use:
+psycopg2-binary==2.9.9
+# Or for psycopg v3 (modern) you can use: psycopg[binary]==3.2.2
+
+# Convenience helper to parse DATABASE_URL (optional)
 dj-database-url==1.2.0
 
-# File storage on S3 (optional, enable if you plan to use AWS S3 for media)
+# File storage on S3 (optional - enable if you use AWS S3 for media)
 django-storages[boto3]==1.14.1
-boto3==1.30.24
+# Pin boto3 to a compatible released version
+boto3==1.40.52
 
-# Optional developer tools
+# Optional developer tools (only for dev)
 django-debug-toolbar==4.1
+
+# Optional: monitoring, caching, task queue (uncomment if used)
+# sentry-sdk==1.21.0
+# redis==5.0.0
+# celery==5.3.0
 
