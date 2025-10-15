@@ -3,3 +3,18 @@ gunicorn==21.2.0
 whitenoise==6.5.0
 python-dotenv==1.0.1
 django-sitemaps==1.0
+
+# Image handling (required for ImageField)
+Pillow==10.1.0
+
+# Database helpers (optional - needed if you use Postgres in production)
+psycopg-binary==2.9.9
+dj-database-url==1.2.0
+
+# File storage on S3 (optional, enable if you plan to use AWS S3 for media)
+django-storages[boto3]==1.14.1
+boto3==1.30.24
+
+# Optional developer tools
+django-debug-toolbar==4.1
+
