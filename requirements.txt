@@ -11,7 +11,7 @@ python-dotenv==1.0.1
 # sitemap helpers, add them later. For now we omit it to avoid build errors.
 
 # Image handling (required for ImageField)
-Pillow==10.1.0
+Pillow==10.0.1
 
 # Database helpers (use Postgres in production; choose one)
 # For psycopg2 (legacy adapter) use:

@@ -56,3 +56,15 @@ python -m pip install -r requirements.txt
 3. If a specific package fails to build, identify it in the verbose pip log and pin it to a version that provides wheels for your Python version, or install required OS-level libraries in the build image (for Pillow, install libjpeg, zlib, etc.).
 
 If you'd like I can add a Render-specific `start`/`build` script or prepare a Dockerfile that ensures OS dependencies are installed before pip runs.
+I added a sample `Dockerfile` to this repo which installs system dependencies (libjpeg, zlib, etc.), upgrades pip/setuptools/wheel and installs the Python dependencies.
+
+To build and run locally with Docker:
+
+```bash
+docker build -t bjss:latest .
+docker run -p 8000:8000 --env-file .env bjss:latest
+```
+
+Using Docker on Render
+- If Render's build environment fails to build wheels, a Docker deployment (Render supports Docker) solves the issue by allowing you to install OS dependencies before pip.
+
