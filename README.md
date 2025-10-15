@@ -39,3 +39,20 @@ Notes & next steps:
 - Consider using PostgreSQL in production and configure `DATABASES` accordingly.
 - Add an Open Graph image at `static/main/assets/og-image.png` (placeholder used in templates).
 - Configure a proper SECRET_KEY and ensure `DJANGO_DEBUG=False` in production.
+
+Render-specific deploy troubleshooting
+-------------------------------------
+If you're deploying to Render (or another host that builds from your repo), you may see errors during pip's build step like "Getting requirements to build wheel: finished with status 'error'". Common fixes:
+
+1. Upgrade pip, setuptools, and wheel as a pre-build step (add this to Render's build commands):
+
+```bash
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -r requirements.txt
+```
+
+2. Use a Python runtime that has wide wheel availability (e.g., Python 3.11 or 3.12) — set `runtime.txt` or the environment's Python version accordingly.
+
+3. If a specific package fails to build, identify it in the verbose pip log and pin it to a version that provides wheels for your Python version, or install required OS-level libraries in the build image (for Pillow, install libjpeg, zlib, etc.).
+
+If you'd like I can add a Render-specific `start`/`build` script or prepare a Dockerfile that ensures OS dependencies are installed before pip runs.

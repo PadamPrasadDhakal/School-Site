@@ -5,8 +5,10 @@ gunicorn==21.2.0
 whitenoise==6.5.0
 python-dotenv==1.0.1
 
-# Sitemap (Django has built-in sitemaps, this is optional helper)
-django-sitemaps==1.0
+# NOTE: Django includes a sitemap framework. The external `django-sitemaps`
+# package is unnecessary and can cause build problems on some build hosts
+# (it was failing during wheel build on Render). If you need advanced
+# sitemap helpers, add them later. For now we omit it to avoid build errors.
 
 # Image handling (required for ImageField)
 Pillow==10.1.0
