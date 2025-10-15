@@ -40,6 +40,12 @@ DEBUG = get_env_setting('DJANGO_DEBUG', 'False').lower() in ('1', 'true', 'yes')
 # ALLOWED_HOSTS from env (comma separated)
 ALLOWED_HOSTS = [h.strip() for h in os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',') if h.strip()]
 
+# During local development/tests Django's test client uses the host 'testserver'.
+# When DEBUG is enabled, allow 'testserver' so RequestFactory/TestClient requests
+# and other local test runs don't raise DisallowedHost and produce a 500.
+if DEBUG and 'testserver' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('testserver')
+
 
 # Application definition
 
