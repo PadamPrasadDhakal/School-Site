@@ -18,10 +18,22 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from main.sitemaps import StaticViewSitemap, PostSitemap, NewsSitemap, AlbumSitemap
+from django.views.generic import TemplateView
+
+sitemaps = {
+    'static': StaticViewSitemap(),
+    'posts': PostSitemap(),
+    'news': NewsSitemap(),
+    'albums': AlbumSitemap(),
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
+    path('robots.txt', TemplateView.as_view(template_name='main/robots.txt', content_type='text/plain'), name='robots')
 ]
 
 if settings.DEBUG:

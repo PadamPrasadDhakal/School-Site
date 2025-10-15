@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Teacher, Post, Comment, PhotoGallery, News, PhotoAlbum
+from .models import Teacher, Post, Comment, PhotoGallery, News, PhotoAlbum, SagarmathaTeensClubMember
 
 class PhotoGalleryInline(admin.TabularInline):
     model = PhotoGallery
@@ -20,6 +20,21 @@ class TeacherAdmin(admin.ModelAdmin):
         }),
     )
 
+@admin.register(SagarmathaTeensClubMember)
+class SagarmathaTeensClubAdmin(admin.ModelAdmin):
+    list_display=('name','designation','class_name','photo','statement')
+    list_filter=('designation',)
+    search_fields=('designation','name')
+    fieldsets = (
+        (None, {
+            "fields": (
+                'name','designation','class_name','photo','statement'
+            ),
+        }),
+    )
+    
+    
+    
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'date')

@@ -1,9 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Balabhadra Janata HSS{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block meta_description %}
+        <meta name="description" content="Balabhadra Janata Higher Secondary School — quality education in Mechinagar, Jhapa. News, gallery, teachers and student resources.">
+        {% endblock %}
+        <title>{% block title %}Balabhadra Janata HSS{% endblock %}</title>
+        <!-- Open Graph / Facebook -->
+        <meta property="og:title" content="{% block og_title %}Balabhadra Janata HSS{% endblock %}">
+        <meta property="og:description" content="Balabhadra Janata Higher Secondary School — quality education in Mechinagar, Jhapa.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'main/assets/og-image.png' %}">
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Balabhadra Janata HSS">
+        <meta name="twitter:description" content="Balabhadra Janata Higher Secondary School — quality education in Mechinagar, Jhapa.">
+        <link rel="canonical" href="{{ request.build_absolute_uri }}" />
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "School",
+            "name": "Balabhadra Janata Higher Secondary School",
+            "url": "{{ request.scheme }}://{{ request.get_host }}",
+            "telephone": "023460046",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Mechinagar-11, Dhaijan",
+                "addressLocality": "Jhapa",
+                "addressCountry": "NP"
+            }
+        }
+        </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
@@ -240,9 +269,62 @@
         <div class="mb-2 fw-bold" style="color: var(--primary); font-size: 1.2rem;">Balabhadra Janata Higher Secondary School</div>
         <div class="mb-1 text-muted">Mechinagar-11, Dhaijan, Jhapa | Phone: 023460046</div>
         <div class="small text-muted">&copy; {{ now|default:2025 }} Balabhadra Janata HSS. All rights reserved.</div>
-        <div class="small text-muted mt-1">Developed by <a href="https://www.facebook.com/sohan.dhakal.18" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline dotted;">Padam Prasad Dhakal</a></div>
+                <div class="small text-muted mt-1">Developed by <a href="#devModal" data-bs-toggle="modal" role="button" style="color:inherit; text-decoration:underline dotted;">Padam Prasad Dhakal</a></div>
     </div>
 </footer>
+<!-- Developer Info Modal -->
+<div class="modal fade" id="devModal" tabindex="-1" aria-labelledby="devModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content dev-modal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-primary fw-bold mx-auto" id="devModalLabel">Developer Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-10 col-md-8">
+                            <!-- Large centered image (logo/photo) -->
+                            <div class="mx-auto mb-2 dev-avatar-container" style="width:90px; height:90px; border-radius:8px; overflow:hidden; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,0.06);">
+                                <img id="dev-avatar-img" src="media/developers.jpg" alt="Developer photo" style="max-width:100%; max-height:100%; display:none;" />
+                                <div id="dev-avatar-placeholder" style="color:#94a3b8; font-weight:600;"></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row text-start">
+                        <div class="col-6 col-md-6 small text-muted">Address</div>
+                        <div class="col-6 col-md-6"><a href="#" class="text-decoration-none">Birtamode, Koshi 57204, Nepal</a></div>
+
+                        <div class="col-6 col-md-6 small text-muted mt-2">Phone</div>
+                        <div class="col-6 col-md-6 mt-2"><a href="tel:+977749241125" class="text-decoration-none">9749241125</a></div>
+
+                        <div class="col-6 col-md-6 small text-muted mt-2">Mail</div>
+                        <div class="col-6 col-md-6 mt-2"><a href="mailto:study.sdhakal@gmail.com" class="text-decoration-none">study.sdhakal@gmail.com</a></div>
+
+                        <div class="col-6 col-md-6 small text-muted mt-2">LinkedIn</div>
+                        <div class="col-6 col-md-6 mt-2"><a href="#" class="text-decoration-none">https://www.linkedin.com/in/padam-prasad-dhakal-5976702b9/</a></div>
+                        </div>
+
+                        <div class="row mt-4 justify-content-center">
+                            <div class="col-auto">
+                                <a href="https://www.facebook.com/sohan.dhakal.18" target="_blank" rel="noopener" class="btn" style="background:#1877f2; color:#fff;">Facebook</a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="https://www.linkedin.com/in/padam-prasad-dhakal-5976702b9/" target="_blank" rel="noopener" class="btn" style="background:#0A66C2; color:#fff;">LinkedIn</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 (function() {
@@ -283,6 +365,63 @@ window.addEventListener('scroll', function() {
     } else {
         navbar.classList.remove('minimized');
         brand.classList.remove('minimized');
+    }
+});
+</script>
+<style>
+/* Developer modal small styles */
+.dev-modal .modal-content { border-radius: 12px; }
+.dev-avatar img { border-radius: 6px; }
+.dev-modal .modal-title { letter-spacing: 0.6px; }
+.dev-modal a.btn-outline-primary { border-color: #2563eb; color:#2563eb; }
+.dev-modal a.btn-outline-primary:hover { background:#2563eb; color:#fff; }
+</style>
+<style>
+/* Dynamic modal enhancements */
+.dev-modal .modal-content {
+    border: 0;
+    background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    box-shadow: 0 8px 30px rgba(37,99,235,0.08);
+    transform: translateY(10px);
+    transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms;
+}
+.modal.show .dev-modal .modal-content {
+    transform: translateY(0);
+}
+.dev-avatar { transition: transform 300ms ease, box-shadow 300ms ease; }
+.dev-avatar:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+.dev-modal .lead { color: #334155; font-weight:600; }
+.dev-modal hr { border-top: 1px solid #eef2ff; }
+.dev-modal .modal-content { width: 300px; max-width: 90vw; height: 320px; margin: 0 auto; border-radius:12px; overflow:hidden; }
+.dev-modal .modal-body { padding: 0.6rem 0.6rem; display:flex; flex-direction:column; align-items:center; justify-content:space-between; height:100%; }
+.dev-avatar-container { width:90px; height:90px; }
+.dev-modal .row.text-start { width:100%; padding:0 6px; max-height:110px; overflow:auto; font-size:0.86rem; }
+.dev-modal .btn { padding:.32rem .5rem; font-size:0.78rem; }
+</style>
+</style>
+<script>
+// Toggle placeholder if image src is set later
+document.addEventListener('DOMContentLoaded', function () {
+    var img = document.getElementById('dev-avatar-img');
+    var placeholder = document.getElementById('dev-avatar-placeholder');
+    if (!img || !placeholder) return;
+    function refreshAvatar() {
+        var src = img.getAttribute('src');
+        if (src && src.trim() !== '') {
+            img.style.display = 'block';
+            placeholder.style.display = 'none';
+        } else {
+            img.style.display = 'none';
+            placeholder.style.display = 'block';
+        }
+    }
+    refreshAvatar();
+    // Observe attribute changes in case user injects src later
+    try {
+        var obs = new MutationObserver(refreshAvatar);
+        obs.observe(img, { attributes: true, attributeFilter: ['src'] });
+    } catch (e) {
+        // MutationObserver may not be available in very old browsers; that's fine
     }
 });
 </script>
