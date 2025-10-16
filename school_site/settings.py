@@ -141,8 +141,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Security headers when running behind a proxy/load balancer
@@ -163,3 +163,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
+INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
+
+MEDIA_URL = '/media/'
