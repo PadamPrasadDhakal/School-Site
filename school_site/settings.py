@@ -60,6 +60,19 @@ INSTALLED_APPS = [
     'main',
 ]
 
+# CLOUDINARY configuration
+USE_CLOUDINARY = os.getenv('USE_CLOUDINARY', 'False').lower() in ('1', 'true', 'yes')
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
+if CLOUDINARY_URL or USE_CLOUDINARY:
+    INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    # When using Cloudinary, MEDIA_URL is handled by the storage backend
+    MEDIA_URL = '/media/'
+else:
+    # Local media defaults
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -163,9 +176,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
-
-MEDIA_URL = '/media/'
+# End CLOUDINARY configuration
