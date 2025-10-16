@@ -34,3 +34,9 @@ django-debug-toolbar==4.1
 # redis==5.0.0
 # celery==5.3.0
 
+# Cloudinary (optional) - add Cloudinary SDK and the Django storage wrapper if
+# you plan to use Cloudinary for media storage. These are compatible with
+# Python 3.11.x and Django 5.x.
+cloudinary==1.44.1
+django-cloudinary-storage==0.3.0
+
