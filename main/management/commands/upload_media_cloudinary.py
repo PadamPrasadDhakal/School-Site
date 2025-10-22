@@ -6,17 +6,24 @@ import traceback
 class Command(BaseCommand):
     help = 'Upload local media files to Cloudinary and update ImageField values.'
 
+    def add_arguments(self, parser):
+        parser.add_argument('--dry-run', action='store_true', help='Show what would be uploaded/changed without making modifications')
+        parser.add_argument('--resave', action='store_true', help='Re-save model instances to trigger storage upload instead of using uploader')
+
     def handle(self, *args, **options):
         try:
             from django.conf import settings
             import django
             django.setup()
             from main.models import Teacher, Post, PhotoAlbum, PhotoGallery, SagarmathaTeensClubMember
-            try:
-                import cloudinary.uploader
-            except Exception:
-                self.stderr.write('cloudinary package is required. Run pip install cloudinary')
-                return
+            cloudinary_uploader = None
+            if not options.get('resave'):
+                try:
+                    import cloudinary.uploader as cloudinary_uploader
+                except Exception:
+                    if not options.get('dry_run'):
+                        self.stderr.write('cloudinary package is required for uploader mode. Run pip install cloudinary')
+                        return
 
             BASE_DIR = Path(settings.BASE_DIR)
 
@@ -33,7 +40,7 @@ class Command(BaseCommand):
                 if folder:
                     opts['folder'] = folder
                 self.stdout.write(f"Uploading {local_path} to Cloudinary...")
-                res = cloudinary.uploader.upload(str(local_path), **opts)
+                res = cloudinary_uploader.upload(str(local_path), **opts)
                 return res
 
             for model, fields in MODEL_FIELD_MAP.items():
@@ -59,6 +66,23 @@ class Command(BaseCommand):
                         if not local_path.exists():
                             self.stdout.write(f'  [{i}/{total}] Local file not found: {local_path} (skipping)')
                             continue
+                        # If --dry-run just report
+                        if options.get('dry_run'):
+                            self.stdout.write(f'  [DRY RUN] Would upload {local_path} for {model.__name__}.{field} on obj id={getattr(obj, "pk", "n/a")}')
+                            continue
+
+                        # If resave option is set, re-save instance to trigger storage
+                        if options.get('resave'):
+                            try:
+                                # assign same value to trigger storage backend save on model save
+                                setattr(obj, field, name)
+                                obj.save()
+                                self.stdout.write(f'  [{i}/{total}] Re-saved object id={getattr(obj, "pk", "n/a")} to trigger upload for {field}')
+                            except Exception:
+                                self.stdout.write(f'  [{i}/{total}] Error re-saving object {obj} for field {field}')
+                                traceback.print_exc()
+                            continue
+
                         try:
                             folder = f"{model._meta.app_label}/{field}"
                             res = upload_file(local_path, folder=folder)
