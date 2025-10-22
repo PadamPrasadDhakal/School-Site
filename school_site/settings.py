@@ -66,7 +66,6 @@ CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 if CLOUDINARY_URL or USE_CLOUDINARY:
     INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    # When using Cloudinary, MEDIA_URL is handled by the storage backend
     MEDIA_URL = '/media/'
 else:
     # Local media defaults
