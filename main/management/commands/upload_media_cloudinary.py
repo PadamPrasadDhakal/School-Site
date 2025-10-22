@@ -109,4 +109,3 @@ class Command(BaseCommand):
 
         except Exception as e:
             self.stderr.write(str(e))
-*** End Patch
